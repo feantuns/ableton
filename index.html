@@ -360,18 +360,7 @@
               ></box-icon>
             </div>
           </div>
-          <iframe
-            id="video-frame"
-            width="100%"
-            src="https://www.youtube.com/embed/9SbnhgjeyXA?si=Cnzw4-xopLExcyBy&amp;controls=0&amp;enablejsapi=1"
-            title="YouTube video player"
-            frameborder="0"
-            controls="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-            class="hidden h-[46vw] sm:h-[36vw] lg:h-[28.1vw]"
-          ></iframe>
+          <div id="video-frame-container"></div>
           <p class="font-medium text-sm mt-3 ml-3">
             Why Ableton - Juanpe Bolivar
           </p>
@@ -767,38 +756,6 @@
     });
   </script>
 
-  <script defer>
-    var player;
-
-    // Load the YouTube Iframe API asynchronously
-    (function () {
-      var tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      tag.async = true;
-      var firstScriptTag = document.getElementsByTagName("script")[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    })();
-
-    const videoCover = document.getElementById("video-cover");
-    const videoFrame = document.getElementById("video-frame");
-
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player("video-frame");
-    }
-
-    function playVideo() {
-      if (player) {
-        player.playVideo(); // Play the video on button click
-      }
-    }
-
-    videoCover.addEventListener("click", () => {
-      videoCover.classList.add("hidden");
-      videoFrame.classList.remove("hidden");
-      playVideo();
-    });
-  </script>
-
   <script>
     const moreToggle = document.getElementById("more-toggle");
     const moreToggleIcon = document.getElementById("more-toggle-icon");
@@ -865,6 +822,61 @@
       if (!menuMobile.classList.contains("translate-y-[-100%]")) {
         closeMenuMobile();
       }
+    });
+  </script>
+
+  <script defer>
+    var player;
+
+    // Load the YouTube Iframe API asynchronously
+    (function () {
+      var tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      tag.async = true;
+      var firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    })();
+
+    const videoCover = document.getElementById("video-cover");
+    let videoFrame = document.getElementById("video-frame");
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player("video-frame");
+    }
+
+    function playVideo() {
+      if (player) {
+        player.playVideo(); // Play the video on button click
+      }
+    }
+
+    videoCover.addEventListener("click", () => {
+      if (!videoFrame) {
+        const videoFrameContainer = document.getElementById(
+          "video-frame-container"
+        );
+
+        videoFrameContainer.innerHTML = `
+          <iframe
+            id="video-frame"
+            width="100%"
+            src="https://www.youtube.com/embed/9SbnhgjeyXA?si=Cnzw4-xopLExcyBy&amp;controls=0&amp;enablejsapi=1"
+            title="YouTube video player"
+            frameborder="0"
+            controls="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            class="hidden h-[46vw] sm:h-[36vw] lg:h-[28.1vw]"
+          ></iframe>
+        `;
+
+        videoFrame = document.getElementById("video-frame");
+      }
+
+      videoCover.classList.add("hidden");
+      videoFrame.classList.remove("hidden");
+      playVideo();
     });
   </script>
 </html>
