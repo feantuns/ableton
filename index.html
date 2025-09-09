@@ -646,10 +646,13 @@
             </div>
 
             <div class="basis-[300px] grow-1">
-              <p class="font-normal mb-3">Language and Location</p>
+              <p id="label-language-location" class="font-normal mb-3">
+                Language and Location
+              </p>
               <div class="flex gap-[2px]">
                 <div class="relative">
                   <select
+                    aria-labelledby="label-language-location"
                     value="en"
                     class="bg-gray-200 px-3 py-2 text-[0.8rem] rounded-none appearance-none font-medium min-w-[100px]"
                   >
@@ -671,6 +674,7 @@
                 </div>
                 <div class="relative grow-1">
                   <select
+                    aria-labelledby="label-language-location"
                     value="us"
                     class="bg-gray-200 w-full px-3 py-2 rounded-none appearance-none text-[0.8rem] font-medium"
                   >
